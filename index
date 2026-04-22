@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientia Naturalis | Education Credential Verification</title>
+  <meta name="description" content="High-Stakes Knowledge Arbitrage at the Scientific-Policy-Finance Interface. W3C Verifiable Credentials, Erasmus+ CBHE modular training." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────── */
+    :root {
+      --ink:      #0b0d14;
+      --paper:    #f4f1ea;
+      --navy:     #0f1829;
+      --gold:     #c9972b;
+      --gold-lt:  #e8b84b;
+      --amber:    #f0c060;
+      --steel:    #3a4a6b;
+      --mist:     #8a9ab8;
+      --rule:     rgba(201,151,43,0.35);
+      --mono:     'IBM Plex Mono', monospace;
+      --serif:    'DM Serif Display', serif;
+      --body:     'Fraunces', serif;
+      --grid-gap: clamp(1rem, 2vw, 2rem);
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── GRID SYSTEM ─────────────────────────────────────── */
+    .grid-wrap {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gap);
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 4rem);
+    }
+
+    /* ── UTILITY ─────────────────────────────────────────── */
+    .mono      { font-family: var(--mono); }
+    .gold      { color: var(--gold); }
+    .mist      { color: var(--mist); }
+    .tag {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--rule);
+      padding: .2em .7em;
+      display: inline-block;
+    }
+    .rule-h {
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--mist);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      user-select: none;
+    }
+
+    /* ── ANIMATED BACKGROUND GRID ────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: .18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(11,13,20,.85);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1rem, 4vw, 4rem);
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .nav-logo .wordmark {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      letter-spacing: .04em;
+    }
+    .nav-logo .domain {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--gold);
+      letter-spacing: .08em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mist);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--ink) !important;
+      padding: .45em 1.1em;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--amber) !important; color: var(--ink) !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: .5rem;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--paper);
+      transition: .3s;
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,151,43,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(15,24,41,.8) 0%, transparent 80%);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding-bottom: clamp(3rem, 8vh, 7rem);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gap);
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 4rem);
+      align-items: end;
+    }
+    .hero-text { grid-column: 1 / 9; }
+    .hero-meta { grid-column: 10 / 13; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: clamp(.95rem, 1.5vw, 1.1rem);
+      color: var(--mist);
+      max-width: 56ch;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .9em 2em;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: transparent; color: var(--gold); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .9em 2em;
+      border: 1px solid rgba(244,241,234,.25);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hero meta column */
+    .meta-card {
+      border: 1px solid var(--rule);
+      padding: 1.2rem;
+      background: rgba(15,24,41,.6);
+    }
+    .meta-card .label {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: .5rem;
+    }
+    .meta-card .value {
+      font-family: var(--mono);
+      font-size: .85rem;
+      color: var(--gold-lt);
+    }
+
+    /* ── DIVIDER STRIP ───────────────────────────────────── */
+    .clients-strip {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.2rem clamp(1rem, 4vw, 4rem);
+      background: rgba(15,24,41,.5);
+      overflow: hidden;
+    }
+    .clients-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+    .clients-inner .cl {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mist);
+      opacity: .7;
+      flex-shrink: 0;
+    }
+    .clients-inner .cl strong { color: var(--gold); font-weight: 600; }
+
+    /* ── SECTIONS COMMON ─────────────────────────────────── */
+    section { position: relative; z-index: 1; }
+    .section-pad { padding: clamp(4rem, 10vh, 9rem) 0; }
+
+    .section-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: 1.1;
+      flex: 1;
+    }
+    .section-intro {
+      grid-column: 1 / 8;
+      color: var(--mist);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── SERVICES GRID ───────────────────────────────────── */
+    #services { background: var(--navy); }
+
+    .service-card {
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      position: relative;
+      background: rgba(11,13,20,.6);
+      transition: border-color .3s, transform .3s;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height .4s ease;
+    }
+    .service-card:hover::before { height: 100%; }
+    .service-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+
+    .service-num {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      color: var(--mist);
+    }
+    .service-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .service-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--paper);
+    }
+    .service-desc {
+      font-size: .9rem;
+      color: var(--mist);
+      flex: 1;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    /* card column spans */
+    .col-4  { grid-column: span 4; }
+    .col-6  { grid-column: span 6; }
+    .col-3  { grid-column: span 3; }
+    .col-12 { grid-column: 1 / -1; }
+    .col-8  { grid-column: span 8; }
+    .col-5  { grid-column: span 5; }
+    .col-7  { grid-column: span 7; }
+
+    /* ── CREDENTIAL SECTION ──────────────────────────────── */
+    #credentials {
+      background: var(--ink);
+    }
+    .cred-showcase {
+      grid-column: 1 / 8;
+    }
+    .cred-sidebar {
+      grid-column: 9 / 13;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-top: 1rem;
+    }
+
+    /* W3C VC card mock */
+    .vc-card {
+      border: 1px solid var(--gold);
+      background: linear-gradient(135deg, rgba(15,24,41,.95), rgba(11,13,20,.95));
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .vc-card::after {
+      content: '';
+      position: absolute;
+      top: -30%; right: -20%;
+      width: 60%; height: 60%;
+      background: radial-gradient(circle, rgba(201,151,43,.12), transparent 70%);
+      pointer-events: none;
+    }
+    .vc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .vc-badge {
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--ink);
+      padding: .3em .8em;
+      font-weight: 600;
+    }
+    .vc-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--gold);
+    }
+    .vc-field {
+      margin-bottom: 1rem;
+    }
+    .vc-field .fl {
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: .2rem;
+    }
+    .vc-field .fv {
+      font-family: var(--mono);
+      font-size: .85rem;
+      color: var(--paper);
+    }
+    .vc-hash {
+      font-family: var(--mono);
+      font-size: .55rem;
+      color: rgba(138,154,184,.5);
+      word-break: break-all;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* cred sidebar items */
+    .cred-info {
+      border-left: 2px solid var(--rule);
+      padding-left: 1.2rem;
+    }
+    .cred-info h4 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      margin-bottom: .4rem;
+    }
+    .cred-info p {
+      font-size: .85rem;
+      color: var(--mist);
+    }
+
+    /* ── CLIENTS ─────────────────────────────────────────── */
+    #clients {
+      background: var(--navy);
+    }
+    .client-grid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--rule);
+      margin-top: 2rem;
+    }
+    .client-cell {
+      border: 1px solid var(--rule);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .7rem;
+      transition: background .3s;
+    }
+    .client-cell:hover { background: rgba(201,151,43,.06); }
+    .client-cell .icon { font-size: 2rem; }
+    .client-cell .name {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    /* ── PROJECTS / REPOS ────────────────────────────────── */
+    #projects {
+      background: var(--ink);
+    }
+    .project-card {
+      border: 1px solid var(--rule);
+      padding: 1.8rem;
+      background: rgba(15,24,41,.4);
+      transition: border-color .3s;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .project-card:hover { border-color: var(--gold); }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+    }
+    .project-status {
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .25em .7em;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .status-active { color: #5ecf7a; border-color: rgba(94,207,122,.4); }
+    .status-ongoing { color: var(--gold); border-color: var(--rule); }
+    .project-desc { font-size: .88rem; color: var(--mist); }
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+    }
+    .repo-link {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--gold);
+      letter-spacing: .08em;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      transition: opacity .2s;
+    }
+    .repo-link:hover { opacity: .7; }
+    .repo-link svg {
+      width: 12px; height: 12px;
+      fill: currentColor;
+    }
+    .project-type {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--mist);
+      text-transform: uppercase;
+    }
+
+    /* ── ABOUT / MANIFESTO ───────────────────────────────── */
+    #about {
+      background: var(--navy);
+      overflow: hidden;
+    }
+    .manifesto-text {
+      grid-column: 2 / 9;
+    }
+    .manifesto-text p {
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-stat {
+      grid-column: 10 / 13;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 3rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-top: .4rem;
+    }
+
+    /* large watermark behind manifesto */
+    .manifesto-wm {
+      position: absolute;
+      font-family: var(--serif);
+      font-size: clamp(6rem, 14vw, 16rem);
+      color: rgba(201,151,43,.04);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────── */
+    #contact { background: var(--ink); }
+    .contact-split {
+      grid-column: 1 / 7;
+    }
+    .contact-split h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      margin-bottom: 1.2rem;
+    }
+    .contact-split p {
+      color: var(--mist);
+      margin-bottom: 2rem;
+    }
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cd-row {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .cd-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mist);
+      min-width: 80px;
+    }
+    .cd-value {
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--gold-lt);
+    }
+    .contact-form-col {
+      grid-column: 8 / 13;
+      border: 1px solid var(--rule);
+      padding: 2.5rem;
+      background: rgba(15,24,41,.5);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+      display: block;
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: .5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(11,13,20,.8);
+      border: 1px solid rgba(138,154,184,.2);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: .85rem;
+      padding: .8em 1em;
+      outline: none;
+      transition: border-color .25s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem clamp(1rem, 4vw, 4rem);
+      background: rgba(11,13,20,.9);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+    }
+    .footer-domain {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--gold);
+      letter-spacing: .1em;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--mist);
+      letter-spacing: .08em;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mist);
+      transition: color .2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-badges {
+      display: flex;
+      gap: .7rem;
+      flex-wrap: wrap;
+    }
+    .f-badge {
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule);
+      padding: .3em .7em;
+      color: var(--mist);
+    }
+
+    /* ── MOBILE NAV ──────────────────────────────────────── */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(11,13,20,.97);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: var(--mono);
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mist);
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    #mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .col-4  { grid-column: span 6; }
+      .col-3  { grid-column: span 6; }
+      .col-7  { grid-column: 1/-1; }
+      .col-5  { grid-column: 1/-1; }
+      .hero-text { grid-column: 1 / 10; }
+      .hero-meta { grid-column: 10 / 13; }
+      .manifesto-text { grid-column: 1 / 9; }
+      .manifesto-stat { grid-column: 9 / 13; }
+      .cred-showcase { grid-column: 1/-1; }
+      .cred-sidebar { grid-column: 1/-1; flex-direction: row; flex-wrap: wrap; }
+      .contact-split { grid-column: 1/-1; }
+      .contact-form-col { grid-column: 1/-1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .col-4  { grid-column: 1/-1; }
+      .col-6  { grid-column: 1/-1; }
+      .col-3  { grid-column: span 6; }
+      .hero-text { grid-column: 1/-1; }
+      .hero-meta { grid-column: 1/-1; flex-direction: row; flex-wrap: wrap; }
+      .manifesto-text { grid-column: 1/-1; }
+      .manifesto-stat { grid-column: 1/-1; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
+      .cred-sidebar { flex-direction: column; }
+      .section-label { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .col-3  { grid-column: 1/-1; }
+      h1 { font-size: 2.4rem; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-ghost { text-align: center; }
+    }
+
+    /* ── SCROLL ANIMATIONS ───────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: none;
+    }
+    [data-reveal-delay="1"] { transition-delay: .1s; }
+    [data-reveal-delay="2"] { transition-delay: .2s; }
+    [data-reveal-delay="3"] { transition-delay: .3s; }
+    [data-reveal-delay="4"] { transition-delay: .4s; }
+    [data-reveal-delay="5"] { transition-delay: .5s; }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="wordmark">Scientia Naturalis</span>
+      <span class="domain">edu.scientia-naturalis.org</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#credentials">Credentials</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Engage</a></li>
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div id="mobile-menu">
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#clients" onclick="closeMobileMenu()">Clients</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#contact" onclick="closeMobileMenu()">Engage</a>
+</div>
+
+<!-- ═══════════════════════════════════ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <div class="pulse"></div>
+          <span class="mono" style="font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);">Scientific–Policy–Finance Interface</span>
+        </div>
+        <h1>High-Stakes<br/><em>Knowledge</em><br/>Arbitrage.</h1>
+        <p class="hero-sub">
+          Bridging the epistemic gap between frontier science, international policy architecture, and capital markets. We translate complexity into decisive advantage for banks, UN & EU agencies, and global education stakeholders.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Request a Consultation</a>
+          <a href="#credentials" class="btn-ghost">Verify Credentials →</a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <div class="label">Domain</div>
+          <div class="value">edu.scientia-naturalis.org</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Credential Standard</div>
+          <div class="value">W3C VC 2.0</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Programme</div>
+          <div class="value">Erasmus+ CBHE</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Specialisation</div>
+          <div class="value">Health &amp; Biotech Systems</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CLIENTS STRIP ══ -->
+<div class="clients-strip">
+  <div class="clients-inner">
+    <span class="cl">Serving ↗</span>
+    <span class="cl"><strong>Banks</strong> &amp; DFIs</span>
+    <span class="cl">·</span>
+    <span class="cl"><strong>UN</strong> Agencies</span>
+    <span class="cl">·</span>
+    <span class="cl"><strong>EU</strong> Institutions</span>
+    <span class="cl">·</span>
+    <span class="cl"><strong>Intl.</strong> NGOs</span>
+    <span class="cl">·</span>
+    <span class="cl"><strong>Education</strong> Industry</span>
+    <span class="cl">·</span>
+    <span class="cl"><strong>Biotech</strong> Sector</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ SERVICES ══ -->
+<section id="services" class="section-pad">
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">01 / Services</span>
+      <h2 class="section-title">High-Stakes Knowledge<br/>Arbitrage Services</h2>
+    </div>
+    <p class="section-intro" data-reveal data-reveal-delay="1">
+      We operate at the intersection where scientific evidence shapes billion-dollar policy decisions and investment mandates. Our advisory model converts asymmetric information into strategic leverage for institutions that cannot afford to be wrong.
+    </p>
+
+    <!-- Row 1 -->
+    <div class="service-card col-4" data-reveal data-reveal-delay="1">
+      <div class="service-num">01</div>
+      <div class="service-icon">⚗️</div>
+      <div class="service-title">Scientific Intelligence Briefings</div>
+      <p class="service-desc">Curated synthesis of peer-reviewed evidence translated into policy-actionable intelligence packages for executive decision makers.</p>
+      <div class="service-tags">
+        <span class="tag">Biotech</span>
+        <span class="tag">Health Systems</span>
+      </div>
+    </div>
+
+    <div class="service-card col-4" data-reveal data-reveal-delay="2">
+      <div class="service-num">02</div>
+      <div class="service-icon">🏛️</div>
+      <div class="service-title">Regulatory &amp; Policy Interface</div>
+      <p class="service-desc">Navigation of EU/UN regulatory landscapes — EMA, ECDC, WHO frameworks — for institutions entering complex governance environments.</p>
+      <div class="service-tags">
+        <span class="tag">EU Policy</span>
+        <span class="tag">WHO / UN</span>
+      </div>
+    </div>
+
+    <div class="service-card col-4" data-reveal data-reveal-delay="3">
+      <div class="service-num">03</div>
+      <div class="service-icon">💹</div>
+      <div class="service-title">Finance–Science Due Diligence</div>
+      <p class="service-desc">Technical validation of biotech, health, and life-science investment theses. Stress-testing assumptions against frontier research for DFIs and private capital.</p>
+      <div class="service-tags">
+        <span class="tag">DFI</span>
+        <span class="tag">Impact Finance</span>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="service-card col-4" data-reveal data-reveal-delay="1">
+      <div class="service-num">04</div>
+      <div class="service-icon">🎓</div>
+      <div class="service-title">Modular Capacity Training</div>
+      <p class="service-desc">Erasmus+ CBHE-aligned modular programmes for institutions building internal scientific literacy at the policy-finance interface.</p>
+      <div class="service-tags">
+        <span class="tag">Erasmus+ CBHE</span>
+        <span class="tag">CPD</span>
+      </div>
+    </div>
+
+    <div class="service-card col-4" data-reveal data-reveal-delay="2">
+      <div class="service-num">05</div>
+      <div class="service-icon">🔐</div>
+      <div class="service-title">Credential Verification Infrastructure</div>
+      <p class="service-desc">W3C Verifiable Credential issuance, verification, and interoperability architecture for higher education consortia and international bodies.</p>
+      <div class="service-tags">
+        <span class="tag">W3C VC 2.0</span>
+        <span class="tag">DID</span>
+      </div>
+    </div>
+
+    <div class="service-card col-4" data-reveal data-reveal-delay="3">
+      <div class="service-num">06</div>
+      <div class="service-icon">🌐</div>
+      <div class="service-title">Horizon Scanning &amp; Foresight</div>
+      <p class="service-desc">Systematic horizon scanning for emerging health, biotech, and regulatory risks with structured foresight deliverables for strategic planning units.</p>
+      <div class="service-tags">
+        <span class="tag">Foresight</span>
+        <span class="tag">Risk</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CREDENTIALS ══ -->
+<section id="credentials" class="section-pad">
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">02 / Credentials</span>
+      <h2 class="section-title">W3C Verifiable<br/>Credential System</h2>
+    </div>
+
+    <!-- VC Mock Card -->
+    <div class="cred-showcase" data-reveal data-reveal-delay="1">
+      <div class="vc-card">
+        <div class="vc-header">
+          <div>
+            <div class="vc-badge">W3C Verifiable Credential · 2.0</div>
+          </div>
+          <div class="vc-logo">Scientia Naturalis</div>
+        </div>
+
+        <div class="vc-field">
+          <div class="fl">Credential Type</div>
+          <div class="fv">EducationalAchievementCredential</div>
+        </div>
+        <div class="vc-field">
+          <div class="fl">Programme</div>
+          <div class="fv">Erasmus+ CBHE — Health Systems Policy Interface</div>
+        </div>
+        <div class="vc-field">
+          <div class="fl">Module</div>
+          <div class="fv">Scientific Intelligence for Policy Makers · Module 3</div>
+        </div>
+        <div class="vc-field">
+          <div class="fl">Issuer DID</div>
+          <div class="fv">did:web:edu.scientia-naturalis.org</div>
+        </div>
+        <div class="vc-field">
+          <div class="fl">Valid From</div>
+          <div class="fv">2025-09-01T00:00:00Z</div>
+        </div>
+        <div class="vc-field">
+          <div class="fl">Alignment</div>
+          <div class="fv">European Qualifications Framework (EQF) Level 7</div>
+        </div>
+        <div class="vc-hash">
+          Proof · Ed25519Signature2020<br/>
+          sha3-256:a8f2c1...4d9e22b · jws:eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+        <a href="#contact" class="btn-primary">Request Credential Verification</a>
+        <a href="https://github.com" target="_blank" rel="noopener" class="btn-ghost">Schema Repository ↗</a>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="cred-sidebar" data-reveal data-reveal-delay="2">
+      <div class="cred-info">
+        <h4>Erasmus+ CBHE</h4>
+        <p>Capacity Building in Higher Education programmes deliver internationally recognised modular training aligned with EU educational standards.</p>
+      </div>
+      <div class="cred-info">
+        <h4>W3C VC 2.0</h4>
+        <p>Credentials are cryptographically signed, tamper-evident, and machine-verifiable — conformant with the W3C Verifiable Credentials Data Model 2.0.</p>
+      </div>
+      <div class="cred-info">
+        <h4>DID:web</h4>
+        <p>Decentralised identifiers anchored to <span class="mono gold" style="font-size:.8rem;">edu.scientia-naturalis.org</span> enabling interoperable trust chains across European educational networks.</p>
+      </div>
+      <div class="cred-info">
+        <h4>EQF Alignment</h4>
+        <p>All credentials map to European Qualifications Framework levels, ensuring portability across member state jurisdictions and international recognition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ PROJECTS ══ -->
+<section id="projects" class="section-pad" style="background:var(--navy);">
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">03 / Projects</span>
+      <h2 class="section-title">Reference Projects<br/>&amp; Repositories</h2>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="project-card col-6" data-reveal data-reveal-delay="1">
+      <div class="project-header">
+        <div class="project-title">OneHealth Policy Evidence Synthesis</div>
+        <span class="project-status status-active">Active</span>
+      </div>
+      <p class="project-desc">Systematic evidence synthesis framework bridging veterinary, environmental, and human health data streams for WHO/ECDC policy units. Includes structured database of 1,200+ peer-reviewed sources.</p>
+      <div class="project-footer">
+        <a href="https://github.com" target="_blank" rel="noopener" class="repo-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          github.com/scientia-naturalis/onehealth-synthesis
+        </a>
+        <span class="project-type">WHO · ECDC</span>
+      </div>
+    </div>
+
+    <div class="project-card col-6" data-reveal data-reveal-delay="2">
+      <div class="project-header">
+        <div class="project-title">Biotech Investment Risk Taxonomy</div>
+        <span class="project-status status-ongoing">Ongoing</span>
+      </div>
+      <p class="project-desc">Structured taxonomy of scientific, regulatory, and market risks in early-stage biotech for development finance institutions. Developed in collaboration with three European DFIs.</p>
+      <div class="project-footer">
+        <a href="https://github.com" target="_blank" rel="noopener" class="repo-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          github.com/scientia-naturalis/biotech-risk-taxonomy
+        </a>
+        <span class="project-type">DFI · Finance</span>
+      </div>
+    </div>
+
+    <div class="project-card col-4" data-reveal data-reveal-delay="1">
+      <div class="project-header">
+        <div class="project-title">EU Credential Interoperability Framework</div>
+        <span class="project-status status-active">Active</span>
+      </div>
+      <p class="project-desc">Open-source W3C VC schema library for Erasmus+ programmes — DID resolution, credential issuance API, and verification endpoint.</p>
+      <div class="project-footer">
+        <a href="https://github.com" target="_blank" rel="noopener" class="repo-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          vc-schema-lib
+        </a>
+        <span class="project-type">W3C · Erasmus+</span>
+      </div>
+    </div>
+
+    <div class="project-card col-4" data-reveal data-reveal-delay="2">
+      <div class="project-header">
+        <div class="project-title">AMR Policy Intelligence Dashboard</div>
+        <span class="project-status status-ongoing">Ongoing</span>
+      </div>
+      <p class="project-desc">Live monitoring dashboard for antimicrobial resistance policy developments across 40+ jurisdictions, feeding into WHO NAP advisory mandates.</p>
+      <div class="project-footer">
+        <a href="https://github.com" target="_blank" rel="noopener" class="repo-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          amr-policy-monitor
+        </a>
+        <span class="project-type">WHO · Public Health</span>
+      </div>
+    </div>
+
+    <div class="project-card col-4" data-reveal data-reveal-delay="3">
+      <div class="project-header">
+        <div class="project-title">Modular Training Curriculum Builder</div>
+        <span class="project-status status-active">Active</span>
+      </div>
+      <p class="project-desc">Open-source curriculum authoring tool for CBHE programmes — micro-credential mapping, EQF alignment validation, and automatic VC issuance pipeline.</p>
+      <div class="project-footer">
+        <a href="https://github.com" target="_blank" rel="noopener" class="repo-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          cbhe-curriculum-builder
+        </a>
+        <span class="project-type">Erasmus+ · EdTech</span>
+      </div>
+    </div>
+
+    <div class="col-12" data-reveal style="margin-top:1rem;">
+      <a href="https://github.com/scientia-naturalis" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;align-items:center;gap:.6rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.07c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.38c.97 0 1.95.13 2.86.38 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        View All Repositories on GitHub ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CLIENTS ══ -->
+<section id="clients" class="section-pad">
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">04 / Clients</span>
+      <h2 class="section-title">Who We Serve</h2>
+    </div>
+    <div class="client-grid" data-reveal data-reveal-delay="1">
+      <div class="client-cell">
+        <div class="icon">🏦</div>
+        <div class="name">Development Finance<br/>Institutions</div>
+      </div>
+      <div class="client-cell">
+        <div class="icon">🌐</div>
+        <div class="name">UN System<br/>Agencies</div>
+      </div>
+      <div class="client-cell">
+        <div class="icon">🇪🇺</div>
+        <div class="name">EU Institutions<br/>&amp; Agencies</div>
+      </div>
+      <div class="client-cell">
+        <div class="icon">🤝</div>
+        <div class="name">International<br/>NGOs</div>
+      </div>
+      <div class="client-cell">
+        <div class="icon">🎓</div>
+        <div class="name">Education Industry<br/>Stakeholders</div>
+      </div>
+      <div class="client-cell">
+        <div class="icon">🧬</div>
+        <div class="name">Biotech &amp; Life<br/>Science Firms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ ABOUT ══ -->
+<section id="about" class="section-pad">
+  <span class="manifesto-wm">Scientia</span>
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">05 / About</span>
+      <h2 class="section-title">The Advisory Mandate</h2>
+    </div>
+
+    <div class="manifesto-text" data-reveal data-reveal-delay="1">
+      <p>
+        In environments where scientific evidence determines policy outcomes worth billions — pandemic preparedness, drug approval timelines, climate health nexus financing — the cost of epistemic failure is not theoretical. It is measured in systemic risk, misallocated capital, and policy voids.
+      </p>
+      <p>
+        Scientia Naturalis was founded on a single conviction: the interface between frontier science, international governance, and capital markets is too consequential to be navigated by generalists. We are not a translation service. We are a <em style="color:var(--gold);font-style:normal;">knowledge arbitrage operation</em> — identifying asymmetric information positions and converting them into durable institutional advantage.
+      </p>
+      <p>
+        Our credential infrastructure exists because trust in expertise must itself be verifiable. Every qualification, every programme affiliation, every training module we deliver is cryptographically signed, immutably traceable, and globally portable under W3C Verifiable Credential standards.
+      </p>
+      <div style="margin-top:2rem;">
+        <a href="#contact" class="btn-primary">Begin the Engagement</a>
+      </div>
+    </div>
+
+    <div class="manifesto-stat" data-reveal data-reveal-delay="2">
+      <div class="stat-item">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Years at the Science–Policy Interface</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Policy Jurisdictions Covered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">W3C</div>
+        <div class="stat-label">VC 2.0 Compliant Credential Issuance</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">EQF 7</div>
+        <div class="stat-label">Aligned Modular Training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CONTACT ══ -->
+<section id="contact" class="section-pad" style="background:var(--navy);">
+  <div class="grid-wrap">
+    <div class="section-header col-12" data-reveal>
+      <span class="section-label">06 / Contact</span>
+      <h2 class="section-title">Begin the<br/>Engagement</h2>
+    </div>
+
+    <div class="contact-split" data-reveal data-reveal-delay="1">
+      <p>Mandates accepted from institutions operating in high-stakes knowledge environments. Initial consultations are by structured brief only — use the form to outline your institutional context and challenge.</p>
+      <div class="contact-detail">
+        <div class="cd-row">
+          <span class="cd-label">Domain</span>
+          <span class="cd-value">edu.scientia-naturalis.org</span>
+        </div>
+        <div class="cd-row">
+          <span class="cd-label">Registry</span>
+          <span class="cd-value">github.com/scientia-naturalis</span>
+        </div>
+        <div class="cd-row">
+          <span class="cd-label">Standard</span>
+          <span class="cd-value">W3C VC 2.0 · did:web</span>
+        </div>
+        <div class="cd-row">
+          <span class="cd-label">Programme</span>
+          <span class="cd-value">Erasmus+ CBHE Modular</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-col" data-reveal data-reveal-delay="2">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Dr. / Prof. …" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Family Name</label>
+          <input type="text" id="lname" placeholder="—" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inst">Institution</label>
+        <input type="text" id="inst" placeholder="Bank / UN Agency / NGO / University …" />
+      </div>
+      <div class="form-group">
+        <label for="stype">Service Type</label>
+        <select id="stype">
+          <option value="" disabled selected>Select service area …</option>
+          <option>Scientific Intelligence Briefing</option>
+          <option>Regulatory &amp; Policy Interface</option>
+          <option>Finance–Science Due Diligence</option>
+          <option>Modular Capacity Training (Erasmus+ CBHE)</option>
+          <option>Credential Verification Infrastructure</option>
+          <option>Horizon Scanning &amp; Foresight</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="email">Institutional Email</label>
+        <input type="email" id="email" placeholder="name@institution.org" />
+      </div>
+      <div class="form-group">
+        <label for="brief">Institutional Context &amp; Challenge</label>
+        <textarea id="brief" rows="5" placeholder="Describe your mandate, the knowledge gap, and the decision horizon …"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;cursor:pointer;" onclick="handleSubmit()">Submit Consultation Brief →</button>
+      <p style="font-family:var(--mono);font-size:.58rem;color:var(--mist);margin-top:1rem;letter-spacing:.05em;">All submissions are treated with institutional confidentiality. Response within 3 working days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="footer-brand">Scientia Naturalis</span>
+      <span class="footer-domain">edu.scientia-naturalis.org</span>
+      <span class="footer-copy">© 2025 Scientia Naturalis. Scientific–Policy–Finance Interface Consultancy.</span>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#credentials">Credentials</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://github.com/scientia-naturalis" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+    <div class="footer-badges">
+      <span class="f-badge">W3C VC 2.0</span>
+      <span class="f-badge">Erasmus+ CBHE</span>
+      <span class="f-badge">EQF 7</span>
+      <span class="f-badge">did:web</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════ SCRIPTS ══ -->
+<script>
+  /* Hamburger */
+  const btn = document.getElementById('hamburgerBtn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => menu.classList.toggle('open'));
+  function closeMobileMenu() { menu.classList.remove('open'); }
+
+  /* Scroll reveal */
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* Form submission placeholder */
+  function handleSubmit() {
+    const email = document.getElementById('email').value;
+    const brief = document.getElementById('brief').value;
+    if (!email || !brief) { alert('Please complete the institutional email and context fields.'); return; }
+    alert('Thank you. Your consultation brief has been received. We will respond within 3 working days.');
+  }
+</script>
+
+</body>
+</html>
